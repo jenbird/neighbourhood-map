@@ -1,0 +1,30 @@
+html, body, .root {
+  height: 100%;
+}
+body {
+  line-height: 1.5;
+}
+body, .app {
+  background: black;
+}
+.flex-container {
+  display: flex;
+  flex-flow: row nowrap;
+}
+.App-header {
+  text-align: center;
+}
+.App-title {
+  color: orange;
+}
+.sidebar {
+  width: 25%;
+  flex-flow: column nowrap;
+
+}
+#map {
+  background: white;
+  height: 100%;
+  width: 75%;
+  flex-flow: column nowrap;
+}

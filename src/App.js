@@ -12,6 +12,7 @@ class App extends Component {
     }
 
 
+
   render() {
 
     return (
@@ -27,9 +28,12 @@ class App extends Component {
             />
 
           <MapContainer
-
+        
             />
           </main>
+        <footer id="footer">
+  <a href="/"><strong>London's Best Sushi</strong></a> Built by Jennifer Smith as part of the Google Udacity Scholarship 2018
+        </footer>
       </div>
     );
   }

@@ -23,8 +23,25 @@ body, .app {
 
 }
 #map {
-  background: white;
+  background: black;
   height: 100%;
   width: 75%;
   flex-flow: column nowrap;
+}
+
+
+#footer {
+  display: block;
+  position: fixed;
+  bottom: 0;
+left: 0;
+height: 65px;
+width: 100%;
+  color: white;
+  font-size: 8pt;
+  letter-spacing: 1px;
+  padding: 25px;
+  text-align: center;
+  justify-content: center;
+  text-transform: uppercase;
 }

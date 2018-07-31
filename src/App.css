@@ -6,6 +6,7 @@ body {
 }
 body, .app {
   background: black;
+  color: white;
 }
 .flex-container {
   display: flex;
@@ -17,22 +18,45 @@ body, .app {
 .App-title {
   color: orange;
 }
-.sidebar {
-  width: 25%;
+.Sidebar {
+  width: 20%;
   flex-flow: column nowrap;
+  display: block;
+  padding-left: 15px;
+.Sidebar-title {
+  text-align: center;
+  color: orange;
+  font-size: 10px;
+}
+.Sidebar-content {
+  text-align: left;
+  color: white;
+  font-size: 8px;
+  padding-left: 15px;
+}
+a {
+  color: orange;
+  text-decoration: none;
+  }
+
+a:hover, a:focus {
+  color: rgb(207, 27, 172);
+  text-decoration: none;
+  }
 
 }
 #map {
   background: black;
   height: 100%;
-  width: 75%;
+  width: 80%;
   flex-flow: column nowrap;
 }
 
 
+
 #footer {
   display: block;
-  position: fixed;
+  position: relative;
   bottom: 0;
 left: 0;
 height: 65px;

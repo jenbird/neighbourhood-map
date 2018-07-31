@@ -5,7 +5,15 @@ import React, { Component } from 'react';
 class ListView extends Component {
 
 
+/*
 
+				<DoctorsList
+					doctors={this.props.doctors}
+					insurance={this.props.insurance}
+					distance={this.props.distance}
+					gender={this.props.gender}
+/>
+*/
 
 
     render() {

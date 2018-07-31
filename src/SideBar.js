@@ -20,15 +20,13 @@ class SideBar extends Component {
 
   render() {
     return (
-      <div className="sidebar">
-
-
-
-        <header className="App-header">
-
-          <h3 className="App-title">sidebar content</h3>
+      <div className="Sidebar">
+        <header className="Sidebar-title">
+          <h4>sidebar content</h4>
         </header>
-
+        <section className="Sidebar-content">
+        <p>test</p>
+        </section>
 
       </div>
     );

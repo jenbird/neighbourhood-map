@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Marker } from "react-google-maps";
-//import StethoscopeIcon from "../stethoscopeIcon.png";
+import SushiIcon from "./sushi.png";
 
 //Method used on https://medium.com/@morgannegagne/google-maps-with-react-951c12b723ad
+
+//animation: google.maps.Animation.DROP
 
 class SushiMarker extends Component {
 
@@ -11,7 +13,8 @@ class SushiMarker extends Component {
     return(
 
         <Marker
-          position={this.props.location}
+        position={this.props.sushi}
+        icon={SushiIcon}
         >
         </Marker>
     );

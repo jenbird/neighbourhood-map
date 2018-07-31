@@ -13,7 +13,7 @@ class SushiMarker extends Component {
     return(
 
         <Marker
-        position={this.props.sushi}
+        position={this.props.location}
         icon={SushiIcon}
         >
         </Marker>

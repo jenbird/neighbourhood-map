@@ -8,7 +8,6 @@ import MapContainer from './MapContainer'
 class App extends Component {
 
   state = {
-      markers: [],
       sushi: [
         {
         key:205,
@@ -45,6 +44,12 @@ class App extends Component {
         name:"Ichi-Riki",
         address:"17 Strutton Ground, London SW1P 2HY",
         location:{lat: 51.497308, lng: -0.133714}
+      },
+      {
+        key: 211,
+        name: "Kulu Kulu Sushi",
+        address:"76 Brewer Street, London W1F 9TU",
+        location:{lat: 51.511007, lng: -0.136743}
       }
       ]
     }

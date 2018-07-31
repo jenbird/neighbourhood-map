@@ -1,10 +1,11 @@
 //import React, { Component } from 'react';
 import React from "react";
 import { withScriptjs, withGoogleMap, GoogleMap } from "react-google-maps";
+
 import SushiMarker from "./SushiMarker";
 
 
-
+// markers.push(markers);
 
 
   const SushiMap = withScriptjs(withGoogleMap((props) => {
@@ -24,7 +25,7 @@ import SushiMarker from "./SushiMarker";
   return (
 
     <GoogleMap
-      defaultZoom={12}
+      defaultZoom={11}
       defaultCenter={ { lat: 51.5073509, lng: -0.1277583 } }
     >
     {markers}

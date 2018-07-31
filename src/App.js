@@ -13,7 +13,7 @@ class App extends Component {
         key:205,
         name:"Sushi Tetsu",
         address:"12 Jerusalem Passage, London, EC1V 4JP",
-        location:{lat: 51.523232, lng: -0.103985}
+        location:{lat: 51.523232, lng: -0.103985},
       },
       {
         key:206,

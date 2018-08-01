@@ -27,8 +27,6 @@ class MapContainer extends Component {
           loadingElement={<div style={{ height: `100%` }} />}
   				containerElement={<div id="map" role="application" aria-label="Sushi restaurants markers on map" style={{ height: `600px`, width: `800px` }} />}
   				mapElement={<div style={{ height: `100%` }} />}
-          defaultZoom={12}
-          defaultCenter={ { lat: 51.5073509, lng: -0.1277583 } }
           />
           </div>
 

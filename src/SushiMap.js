@@ -1,7 +1,8 @@
 //import React, { Component } from 'react';
 import React from "react";
-import { withScriptjs, withGoogleMap, GoogleMap } from "react-google-maps";
-import SushiMarker from "./SushiMarker";
+import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps";
+import SushiIcon from "./sushi.png";
+
 
 
 /*
@@ -11,17 +12,24 @@ onLoaded... (SushiMap, map, markers) => {
         */
 
 
-
   const SushiMap = withScriptjs(withGoogleMap((props) => {
 
   const markers = props.sushi.map( sushi  =>
-      <SushiMarker
+
+      <Marker
         key={sushi.id}
         name={sushi.name}
         address={sushi.address}
-        location={sushi.location}
+        icon={SushiIcon}
+        position={sushi.location}
+        onClick={props.onToggleOpen}
+        closeWindow={props.closeInfo}
+        infoWindow={props.infoWindow}
+
       />
       );
+
+
 /*
     animateMarker = (markers) => {
             markers.setAnimation(google.maps.Animation.DROP);

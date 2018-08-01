@@ -1,74 +1,55 @@
 import React, { Component } from 'react';
-//import logo from './logo.svg';
 import './App.css';
 import SideBar from './SideBar'
 import MapContainer from './MapContainer'
 
 
+// https://www.npmjs.com/package/react-foursquare
+var foursquare = require('react-foursquare')({
+  clientID: 'YFQIXTPIIUHAOVQ4C1DOQTKKLANG1QIUUIO140SIZLKV3DDA',
+  clientSecret: 'QVTNCBNNTUZMSAMT515A0CIBMRIEVPPEYR3YUJMNG2FG3124'
+});
+
+var params = {
+  ll: '51.5073509,-0.1277583',
+  query: 'sushi'
+};
+
+
 class App extends Component {
 
-  state = {
-      sushi: [
-        {
-        key:205,
-        name:"Sushi Tetsu",
-        address:"12 Jerusalem Passage, London, EC1V 4JP",
-        location:{lat: 51.523232, lng: -0.103985},
-      },
-      {
-        key:206,
-        name:"Rock Star Sushi Bar",
-        address:"Unit 5, Merton Abbey Mills, The Long Shop, London SW19 2RD",
-        location:{lat: 51.413090, lng: -0.183197}
-      },
-      {
-        key:207,
-        name:"Zaibatsu",
-        address:"96 Trafalgar Road, Greenwich, London SE10 9UW",
-        location:{lat: 51.484000, lng: 0.001453}
-      },
-      {
-        key:208,
-        name:"Oka",
-        address:"Kingly Street, First Floor of Kingly Court, London W1B 5PW",
-        location:{lat: 51.512666, lng: -0.139002 }
-      },
-      {
-        key:209,
-        name:"Pop Art Sushi",
-        address:"Unit 7 St George Wharf, 8 Wandsworth Road, London SW8 2JW",
-        location:{lat: 51.485534, lng: -0.126373}
-      },
-      {
-        key:210,
-        name:"Ichi-Riki",
-        address:"17 Strutton Ground, London SW1P 2HY",
-        location:{lat: 51.497308, lng: -0.133714}
-      },
-      {
-        key: 211,
-        name: "Kulu Kulu Sushi",
-        address:"76 Brewer Street, London W1F 9TU",
-        location:{lat: 51.511007, lng: -0.136743}
+  constructor(props) {
+     super(props);
+     this.state = {
+       sushi: [],
+       infoWindow: ''
+     };
+   }
+
+      componentDidMount() {
+        foursquare.venues.getVenues(params)
+          .then(res=> {
+            this.setState({ sushi: res.response.venues });
+            console.log("got venues!")
+          })
+          .catch(error => {
+            console.log("error!");
+          })
       }
-      ]
-    }
+
 
 /*
-componentDidMount() {
-    this.setState({sushi: []})
-  }
-  */
+openWindow = () => {
+  this.setState({ infoWindow: this.state.sushi.id });
+  console.log("infoWindow");
+}
 
-/*
-createContact(contact) {
-  ContactsAPI.create(contact).then(contact => {
-    this.setState(state => ({
-      contacts: state.contacts.concat([ contact ])
-    }))
-  })
+closeWindow = () => {
+this.setState({ infoWindow: '' });
+console.log("infoWindow closed");
 }
 */
+
 
   render() {
 
@@ -81,14 +62,15 @@ createContact(contact) {
           <main className="flex-container">
 
           <SideBar
+            sushi={this.state.sushi}
 
             />
-
+          <div id="map" role="application" aria-label="Sushi restaurants markers on map">
           <MapContainer
             sushi={this.state.sushi}
 
             />
-
+        </div>
           </main>
         <footer id="footer">
         <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Sushi">Sushi</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank" rel="noopener noreferrer">CC 3.0 BY</a></div>

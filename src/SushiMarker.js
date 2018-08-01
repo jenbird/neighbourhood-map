@@ -25,6 +25,7 @@ state = {
     }, 3000)
   }
 
+
   render(){
 
     return(
@@ -33,8 +34,13 @@ state = {
         position={this.props.location}
         icon={SushiIcon}
         isMarkerShown={this.state.isMarkerShown}
+        onClick={this.props.onToggleOpen}
+        closeWindow={this.props.closeInfo}
+        infoWindow={this.props.infoWindow}
         >
         </Marker>
+
+
     );
   }
 }

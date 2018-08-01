@@ -3,10 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/runtime": "^7.0.0-beta.55",
+    "hoist-non-react-statics": "^3.0.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+    "react-foursquare": "^1.0.3",
     "react-google-maps": "^9.4.5",
-    "react-scripts": "1.1.4"
+    "react-lifecycles-compat": "^3.0.4",
+    "react-scripts": "1.1.4",
+    "recompose": "^0.28.0",
+    "symbol-observable": "^1.2.0"
   },
   "scripts": {
     "start": "react-scripts start",

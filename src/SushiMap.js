@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { compose, withProps, withHandlers, withStateHandlers } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps";
 import SushiIcon from "./sushi.png";
+//import Info from "./Info";
 
 
             /*
@@ -21,10 +22,12 @@ const SushiMap = compose(
   }),
   withStateHandlers(() => ({
     isOpen: false,
+
  }), {
    onToggleOpen: ({ isOpen }) => () => ({
      isOpen: !isOpen,
-   })
+   }),
+
  }),
 
   withScriptjs,
@@ -44,25 +47,31 @@ const SushiMap = compose(
             address={sushi.address}
             icon={SushiIcon}
             position={sushi.location}
+
             visible={sushi.visible}
-            onClick={props.onMarkerClick}
+            onClick={props.onToggleOpen}
+
           >
 
           {props.isOpen &&
             <InfoWindow
-                        key={props.sushi.id}
+                        key={sushi.id}
+                        name={sushi.name}
+                        address={sushi.location.address}
+                        postalCode={sushi.location.postalCode}
                         onCloseClick={props.onToggleOpen}
                         onKeyPress={props.onToggleOpen}
                       >
-                        <div className="Info-window">
-                          <h4 className="Info-title">{props.sushi.name}</h4>
-                          <p>
-                            {props.sushi.formattedAddress}
+
+                      <span className="Info-window">
+                        <h4 className="Info-title">{sushi.name}</h4>
+                        <p className="Info-content"></p>
+                        <p>{sushi.location.address},</p>
+                        <p>{sushi.location.postalCode}</p>
+</span>
 
 
 
-                          </p>
-                        </div>
             </InfoWindow>
           }
 
@@ -95,6 +104,8 @@ componentDidMount() {
     this.setState({ isMarkerShown: false })
     this.delayedShowMarker()
   }
+
+
 
   render() {
     return (

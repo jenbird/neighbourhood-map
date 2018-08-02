@@ -76,3 +76,16 @@ a:hover, a:focus {
   justify-content: center;
   text-transform: uppercase;
 }
+
+.Info-window {
+  color: black;
+  max-width: 250px;
+  width: calc(70vw);
+}
+
+.Info-title {
+  border-bottom: 5px solid orange;
+}
+.Info-content {
+  color: black;
+}

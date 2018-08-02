@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import SideBar from './SideBar'
-//import MapContainer from './MapContainer'
 import SushiMap from './SushiMap'
 
 
@@ -26,11 +25,8 @@ class App extends Component {
      this.state = {
        sushi: [],
        sushiDetails: [],
-       infoWindow: '',
-
-           isMarkerShown: false,
-           //marker: [],
-           isOpen: false
+       isMarkerShown: false,
+       marker: [],
          }
      };
 
@@ -48,28 +44,7 @@ class App extends Component {
 
       }
 
-      openWindow = () => {
-        this.setState({ infoWindow: this.state.sushi.id });
-        console.log("infoWindow");
-      }
 
-      closeWindow = () => {
-      this.setState({ infoWindow: '' });
-      console.log("infoWindow closed");
-      }
-
-
-      handleToggleOpen = () => {
-          this.setState({
-            isOpen: true
-          })
-        }
-
-      handleToggleClose = () => {
-          this.setState({
-            isOpen: false
-          })
-        }
 
 
   render() {
@@ -84,16 +59,12 @@ class App extends Component {
 
           <SideBar
             sushi={this.state.sushi}
-            openWindow={this.openWindow}
-            closeWindow={this.closeWindow}
+
             />
           <div id="map" role="application" aria-label="Sushi restaurants markers on map">
           <SushiMap
             sushi={this.state.sushi}
-            openWindow={this.openWindow}
-            closeWindow={this.closeWindow}
-            handleToggleOpen={this.state.isOpen}
-            handleToggleClose={this.state.isOpen}
+
             />
         </div>
           </main>

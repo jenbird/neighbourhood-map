@@ -19,7 +19,8 @@ class SideBar extends Component {
         }
 
         updateSearchResults = (query) => {
-      //    if (query) {
+      //if (query) {
+      //this.setState({ query });
             const searchResults = this.props.sushi.filter(sushi => {
               const sushiItem = sushi.name
                 .toLowerCase();
@@ -30,10 +31,11 @@ class SideBar extends Component {
               });
               this.setState({ searchResults });
               //this.props.filterMarkers(searchResults);
-      //  };
-          };
-
-
+          }
+          //else {
+            //searchResults: this.props.sushi
+        //  }
+        //}
 
 
   render() {
@@ -52,7 +54,7 @@ class SideBar extends Component {
             aria-label="Search for Sushi"
             tabIndex={0}
             type="text"
-            placeholder="Search for Sushi"
+            placeholder="Filter by Name"
             value={this.state.query}
             onChange={event => this.updateQuery(event.target.value)}
             />
@@ -60,12 +62,12 @@ class SideBar extends Component {
 
 
           <ul className="Sidebar-locations-list">
-          {this.props.sushi.map(sushi => (
+          {this.state.searchResults.map(sushi => (
             <li
               key={sushi.id}
               tabIndex={0}
-              onClick={() => this.props.showWindow(sushi)}
-              onKeyPress={() => this.props.showWindow(sushi)}
+              onClick={() => this.props.openWindow(sushi)}
+              onKeyPress={() => this.props.openWindow(sushi)}
 
               >
               {sushi.name}

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import SideBar from './SideBar'
-import MapContainer from './MapContainer'
+//import MapContainer from './MapContainer'
+import SushiMap from './SushiMap'
 
 
 // https://www.npmjs.com/package/react-foursquare
@@ -16,15 +17,23 @@ var params = {
 };
 
 
+
 class App extends Component {
 
   constructor(props) {
      super(props);
+
      this.state = {
        sushi: [],
-       infoWindow: ''
+       sushiDetails: [],
+       infoWindow: '',
+
+           isMarkerShown: false,
+           //marker: [],
+           isOpen: false
+         }
      };
-   }
+
 
       componentDidMount() {
         foursquare.venues.getVenues(params)
@@ -35,20 +44,32 @@ class App extends Component {
           .catch(error => {
             console.log("error!");
           })
+
+
+      }
+
+      openWindow = () => {
+        this.setState({ infoWindow: this.state.sushi.id });
+        console.log("infoWindow");
+      }
+
+      closeWindow = () => {
+      this.setState({ infoWindow: '' });
+      console.log("infoWindow closed");
       }
 
 
-/*
-openWindow = () => {
-  this.setState({ infoWindow: this.state.sushi.id });
-  console.log("infoWindow");
-}
+      handleToggleOpen = () => {
+          this.setState({
+            isOpen: true
+          })
+        }
 
-closeWindow = () => {
-this.setState({ infoWindow: '' });
-console.log("infoWindow closed");
-}
-*/
+      handleToggleClose = () => {
+          this.setState({
+            isOpen: false
+          })
+        }
 
 
   render() {
@@ -63,12 +84,16 @@ console.log("infoWindow closed");
 
           <SideBar
             sushi={this.state.sushi}
-
+            openWindow={this.openWindow}
+            closeWindow={this.closeWindow}
             />
           <div id="map" role="application" aria-label="Sushi restaurants markers on map">
-          <MapContainer
+          <SushiMap
             sushi={this.state.sushi}
-
+            openWindow={this.openWindow}
+            closeWindow={this.closeWindow}
+            handleToggleOpen={this.state.isOpen}
+            handleToggleClose={this.state.isOpen}
             />
         </div>
           </main>

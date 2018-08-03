@@ -56,7 +56,7 @@ const SushiMap = compose(
 
           >
 
-          {(props.showInfoIndex == index ) &&
+          {(props.isOpen && props.showInfoIndex == index ) &&
             <InfoWindow
                         key={sushi.id}
                         name={sushi.name}

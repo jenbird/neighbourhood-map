@@ -39,7 +39,7 @@ const SushiMap = compose(
 )((props) =>
 
     <GoogleMap
-      defaultZoom={12}
+      defaultZoom={12.5}
       defaultCenter={ { lat: 51.5073509, lng: -0.1277583 } }
       >
 
@@ -60,8 +60,7 @@ const SushiMap = compose(
             <InfoWindow
                         key={sushi.id}
                         name={sushi.name}
-                        address={sushi.location.address}
-                        postalCode={sushi.location.postalCode}
+                        city={sushi.location}
                         onClick={props.onToggleOpen}
                         onCloseClick={props.onToggleOpen}
                         options={{pixelOffset: new google.maps.Size(0, -10)}}
@@ -71,7 +70,8 @@ const SushiMap = compose(
                       <span className="Info-window">
                         <h4 className="Info-title">{sushi.name}</h4>
                         <p className="Info-content"></p>
-                        <p>{sushi.location.address},</p>
+                        <p>{sushi.location.address}</p>
+                        <p>{sushi.location.city}</p>
                         <p>{sushi.location.postalCode}</p>
 </span>
 

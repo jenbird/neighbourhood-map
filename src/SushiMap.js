@@ -4,14 +4,10 @@ import React, { Component } from 'react';
 import { compose, withProps, withHandlers, withStateHandlers } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps";
 import SushiIcon from "./sushi.png";
-//import Info from "./Info";
 
-
-            /*
-                animateMarker = (markers) => {
-                        markers.setAnimation(google.maps.Animation.DROP);
-                        }
-            */
+/* Solution for multiple InfoWindows opening using React-google-maps:
+https://github.com/tomchentw/react-google-maps/issues/753 &
+https://stackoverflow.com/questions/44248405/react-google-maps-redux-infowindow-on-marker-click*/
 
 
 const SushiMap = compose(
@@ -33,7 +29,6 @@ const SushiMap = compose(
     showInfoIndex: a
 })
 }),
-
   withScriptjs,
   withGoogleMap
 )((props) =>
@@ -41,6 +36,7 @@ const SushiMap = compose(
     <GoogleMap
       defaultZoom={12.5}
       defaultCenter={ { lat: 51.5073509, lng: -0.1277583 } }
+
       >
 
         {props.sushi.map((sushi, index) => (
@@ -52,11 +48,11 @@ const SushiMap = compose(
             icon={SushiIcon}
             position={sushi.location}
             onClick={()=>{ props.showInfo(index)} }
-            visible={sushi.visible}
+            visible={props.sushi.visible}
 
           >
 
-          {(props.isOpen && props.showInfoIndex == index ) &&
+          {(props.isOpen && props.showInfoIndex === index ) &&
             <InfoWindow
                         key={sushi.id}
                         name={sushi.name}
@@ -118,14 +114,22 @@ componentDidMount() {
 
 */
 
+/*
+    animateMarker = (markers) => {
+            markers.setAnimation(google.maps.Animation.DROP);
+            }
+*/
+
+
 
   render() {
     return (
       <SushiMap
+        sushi={this.state.sushi}
         markers={this.state.markers}
         isMarkerShown={this.state.isMarkerShown}
-        onMarkerClick={this.toggleInfoWindow}
-
+        isOpen={this.state.isOpen}
+        showInfo={this.state.showInfo}
       />
     )
   }

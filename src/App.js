@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import SideBar from './SideBar'
 import SushiMap from './SushiMap'
+import escapeRegExp from 'escape-string-regexp'
 
 
 // https://www.npmjs.com/package/react-foursquare
@@ -25,10 +26,14 @@ class App extends Component {
      this.state = {
        sushi: [],
        //sushiDetails: [],
-       //isMarkerShown: false,
-       //markers: [],
-       //isOpen: false,
-       //windowPosition: null
+       //TODO If want to fetch and add more venue sushiDetails
+       //e.g. price, rating
+       isMarkerShown: true,
+       markers: [],
+       isOpen: false, //link to state in map?
+       showInfo: false,
+       searchResults: [],
+       filterQuery: '',
          }
      };
 
@@ -42,11 +47,43 @@ class App extends Component {
           .catch(error => {
             console.log("error!");
           })
-
+//TODO: Add UI for user if content does not load
       }
+
+      showInfo(a){
+     this.setState({showInfoIndex: a })
+    }
+
+/*
+    componentDidMount() {
+      this.resetSearchResults()
+    }
+
+    resetSearchResults() {
+    this.setState({
+      searchResults: this.state.sushi
+    })
+}
+*/
+
+updateSearchResults(query) {
+    const match = new RegExp(escapeRegExp(query), 'i')
+    this.setState({
+      searchResults: this.state.sushi.filter((sushi) => match.test(sushi.name))
+    })
+  }
+
+setMarkerQuery(newQuery) {
+    this.setState({
+      filterQuery: newQuery,
+    })
+  }
 
 
   render() {
+
+
+
 
     return (
 
@@ -58,12 +95,21 @@ class App extends Component {
 
           <SideBar
             sushi={this.state.sushi}
-            windowPosition={this.state.sushi}
+            isMarkerShown={this.state.isMarkerShown}
+            markers={this.state.markers}
+            isOpen={this.state.isOpen}
+            showInfo={this.showInfo}
+            updateSearchResults={this.updateSearchResults.bind(this)}
+            setMarkerQuery={this.setMarkerQuery.bind(this)}
+            searchResults={this.state.searchResults}
             />
           <div id="map" role="application" aria-label="Sushi restaurants markers on map">
           <SushiMap
             sushi={this.state.sushi}
-            windowPosition={this.state.sushi}
+            isMarkerShown={this.state.isMarkerShown}
+            markers={this.state.markers}
+            isOpen={this.state.isOpen}
+            showInfo={this.showInfo}
             />
         </div>
           </main>

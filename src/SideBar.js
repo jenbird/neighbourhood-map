@@ -1,44 +1,42 @@
 import React, { Component } from 'react';
 //import ListView from './ListView'
 //import SearchBox from './SearchBox'
+import escapeRegExp from 'escape-string-regexp'
+import sortBy from 'sort-by'
 
-//   onClick={() => this.props.showInfo(sushiItem)}
-   //onKeyPress={() => this.props.showInfo(sushiItem)}
+
 
 class SideBar extends Component {
 
   state = {
-    //sushi: this.props.sushi,
     query: '',
-    searchResults: this.props.sushi
     };
 
-      updateQuery = (query) => {
-          this.setState({ query })
-          this.updateSearchResults(query);
+
+        updateQuery = (query) => {
+            this.setState({
+              query: query
+            })
+            //this.props.setMarkerQuery(query)
+            this.props.updateSearchResults(query)
+
         }
 
-        updateSearchResults = (query) => {
-      //if (query) {
-      //this.setState({ query });
-            const searchResults = this.props.sushi.filter(sushi => {
-              const sushiItem = sushi.name
-                .toLowerCase();
-                return (
-                  sushiItem.indexOf(query) !== -1 &&
-                  sushiItem.startsWith(query)
-                );
-              });
-              this.setState({ searchResults });
-              //this.props.filterMarkers(searchResults);
-          }
-          //else {
-            //searchResults: this.props.sushi
-        //  }
-        //}
 
 
   render() {
+
+    let searchResults
+    let { query } = this.state
+    let { sushi } = this.props
+    if (query) {
+      const match = new RegExp(escapeRegExp(query), 'i')
+      searchResults = sushi.filter((sushi) => match.test(sushi.name))
+    } else {
+      searchResults = sushi
+    }
+    searchResults.sort(sortBy('searchResults.name'))
+
 
     return (
 
@@ -48,9 +46,8 @@ class SideBar extends Component {
         </header>
         <section className="Sidebar-content">
 
-          <section className="Search-box">
           <input
-            className="Search-input"
+            className="Search-box"
             aria-label="Search for Sushi"
             tabIndex={0}
             type="text"
@@ -58,28 +55,39 @@ class SideBar extends Component {
             value={this.state.query}
             onChange={event => this.updateQuery(event.target.value)}
             />
-            </section>
+
+          <ul
+            className="Sidebar-locations-list"
+            sushi={this.props.sushi}
+
+            >
 
 
-          <ul className="Sidebar-locations-list">
-          {this.state.searchResults.map(sushi => (
+          {searchResults.map(sushi => (
             <li
+              className="Sidebar-list-item"
               key={sushi.id}
               tabIndex={0}
-              onClick={() => this.props.openWindow(sushi)}
-              onKeyPress={() => this.props.openWindow(sushi)}
+              onClick={()=> {this.props.showInfo} }
+              onKeyPress={() => {this.props.showInfo} }
 
               >
               {sushi.name}
             </li>
-         ))}
-       </ul>
+         ))
+       }
+
+        </ul>
+
 
 
         </section>
       </div>
+
     )
-  }
+
 }
+}
+
 
 export default SideBar;

@@ -1,3 +1,4 @@
+/*global google*/
 import React, { Component } from 'react';
 //import React from "react";
 import { compose, withProps, withHandlers, withStateHandlers } from "recompose"
@@ -20,15 +21,18 @@ const SushiMap = compose(
     containerElement: <div id="map" role="application" aria-label="Sushi restaurants markers on map" style={{ height: `600px`, width: `800px` }} />,
     mapElement: <div style={{ height: `100%`, width: `100%` }} />,
   }),
+
   withStateHandlers(() => ({
     isOpen: false,
-
  }), {
    onToggleOpen: ({ isOpen }) => () => ({
-     isOpen: !isOpen,
-   }),
-
- }),
+   	isOpen: !isOpen,
+  }),
+  showInfo: ({ showInfo,isOpen }) => (a) => ({
+    isOpen: !isOpen,
+    showInfoIndex: a
+})
+}),
 
   withScriptjs,
   withGoogleMap
@@ -39,28 +43,29 @@ const SushiMap = compose(
       defaultCenter={ { lat: 51.5073509, lng: -0.1277583 } }
       >
 
-        {props.sushi.map(sushi => (
+        {props.sushi.map((sushi, index) => (
 
           <Marker
-            key={sushi.id}
+            key={index}
             name={sushi.name}
             address={sushi.address}
             icon={SushiIcon}
             position={sushi.location}
-
+            onClick={()=>{ props.showInfo(index)} }
             visible={sushi.visible}
-            onClick={props.onToggleOpen}
 
           >
 
-          {props.isOpen &&
+          {(props.showInfoIndex == index ) &&
             <InfoWindow
                         key={sushi.id}
                         name={sushi.name}
                         address={sushi.location.address}
                         postalCode={sushi.location.postalCode}
+                        onClick={props.onToggleOpen}
                         onCloseClick={props.onToggleOpen}
-                        onKeyPress={props.onToggleOpen}
+                        options={{pixelOffset: new google.maps.Size(0, -10)}}
+                        position={sushi.location}
                       >
 
                       <span className="Info-window">
@@ -81,18 +86,24 @@ const SushiMap = compose(
     </GoogleMap>
   );
 
-  class Map extends Component {
+  class Map extends React.PureComponent {
 
-    state = {
+    constructor(props) {
+       super(props);
 
-        isMarkerShown: false,
-        markers: []
+    this.state = {
+        //isMarkerShown: false,
+        markers: [],
+        isOpen: false,
 
-}
+      }
+    }
 
+/*
 componentDidMount() {
     this.delayedShowMarker()
   }
+
 
   delayedShowMarker = () => {
     setTimeout(() => {
@@ -105,6 +116,7 @@ componentDidMount() {
     this.delayedShowMarker()
   }
 
+*/
 
 
   render() {
@@ -112,7 +124,8 @@ componentDidMount() {
       <SushiMap
         markers={this.state.markers}
         isMarkerShown={this.state.isMarkerShown}
-        onMarkerClick={this.handleMarkerClick}
+        onMarkerClick={this.toggleInfoWindow}
+
       />
     )
   }

@@ -24,9 +24,11 @@ class App extends Component {
 
      this.state = {
        sushi: [],
-       sushiDetails: [],
-       isMarkerShown: false,
-       marker: [],
+       //sushiDetails: [],
+       //isMarkerShown: false,
+       //markers: [],
+       //isOpen: false,
+       //windowPosition: null
          }
      };
 
@@ -41,10 +43,7 @@ class App extends Component {
             console.log("error!");
           })
 
-
       }
-
-
 
 
   render() {
@@ -59,12 +58,12 @@ class App extends Component {
 
           <SideBar
             sushi={this.state.sushi}
-
+            windowPosition={this.state.sushi}
             />
           <div id="map" role="application" aria-label="Sushi restaurants markers on map">
           <SushiMap
             sushi={this.state.sushi}
-
+            windowPosition={this.state.sushi}
             />
         </div>
           </main>

@@ -17,7 +17,6 @@ var params = {
 };
 
 
-
 class App extends Component {
 
   constructor(props) {
@@ -25,64 +24,60 @@ class App extends Component {
 
      this.state = {
        sushi: [],
-       //sushiDetails: [],
        //TODO If want to fetch and add more venue sushiDetails
        //e.g. price, rating
-       isMarkerShown: true,
-       markers: [],
-       isOpen: false, //link to state in map?
-       showInfo: false,
-       searchResults: [],
-       filterQuery: '',
+       //sushiDetails: [],
+       isOpen: false,
+       filterResults: [],
+       setSelectedMarker: '',
+       isSelected: false,
+       animation: 0,
          }
      };
 
-
+/*Fetches data on sushi venues and populates both sushi and filterResults array
+so all names and markers shown on initial load*/
       componentDidMount() {
         foursquare.venues.getVenues(params)
           .then(res=> {
-            this.setState({ sushi: res.response.venues });
+            this.setState({
+              sushi: res.response.venues,
+              filterResults: res.response.venues
+            });
             console.log("got venues!")
           })
           .catch(error => {
             console.log("error!");
           })
+
 //TODO: Add UI for user if content does not load
       }
 
-      showInfo(a){
-     this.setState({showInfoIndex: a })
-    }
+
+//When query starts, filter results
+updateFilterResults(query) {
+    const match = new RegExp(escapeRegExp(query), 'i')
+    this.setState({
+      filterResults: this.state.sushi.filter((sushi) => match.test(sushi.name))
+    })
+  }
 
 /*
-    componentDidMount() {
-      this.resetSearchResults()
-    }
+setSelected(status) {
+  this.setState({
+    isSelected: status,
+  })
+}
 
-    resetSearchResults() {
-    this.setState({
-      searchResults: this.state.sushi
-    })
+setSelectedMarker(id) {
+  this.setState({
+    selectedMarker: id,
+  })
 }
 */
 
-updateSearchResults(query) {
-    const match = new RegExp(escapeRegExp(query), 'i')
-    this.setState({
-      searchResults: this.state.sushi.filter((sushi) => match.test(sushi.name))
-    })
-  }
-
-setMarkerQuery(newQuery) {
-    this.setState({
-      filterQuery: newQuery,
-    })
-  }
-
 
   render() {
-
-
 
 
     return (
@@ -95,21 +90,28 @@ setMarkerQuery(newQuery) {
 
           <SideBar
             sushi={this.state.sushi}
-            isMarkerShown={this.state.isMarkerShown}
-            markers={this.state.markers}
-            isOpen={this.state.isOpen}
+
             showInfo={this.showInfo}
-            updateSearchResults={this.updateSearchResults.bind(this)}
-            setMarkerQuery={this.setMarkerQuery.bind(this)}
-            searchResults={this.state.searchResults}
+            onToggleOpen={this.onToggleOpen}
+            updateFilterResults={this.updateFilterResults.bind(this)}
+            filterResults={this.state.filterResults}
+            setSelected={this.setSelected}
+            selectedMarker={this.state.selectedMarker}
+            setSelectedMarker={this.setSelectedMarker}
             />
           <div id="map" role="application" aria-label="Sushi restaurants markers on map">
           <SushiMap
+            googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBq_ZPuFQWvhI2VFA8pLw3coL_3PvpCDwU&v=3.exp&libraries=geometry,drawing,places"
+            loadingElement={<div style={{ height: `100%` }} />}
+            containerElement={<div id="map" role="application" aria-label="Sushi restaurants markers on map" style={{ height: `600px`, width: `800px` }} />}
+            mapElement={<div style={{ height: `100%`, width: `100%` }} />}
             sushi={this.state.sushi}
-            isMarkerShown={this.state.isMarkerShown}
-            markers={this.state.markers}
-            isOpen={this.state.isOpen}
+            onToggleOpen={this.onToggleOpen}
             showInfo={this.showInfo}
+            updateFilterResults={this.updateFilterResults.bind(this)}
+            filterResults={this.state.filterResults}
+            setSelected={this.setSelected}
+            selectedMarker={this.state.selectedMarker}
             />
         </div>
           </main>

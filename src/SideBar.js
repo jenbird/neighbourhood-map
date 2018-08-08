@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-//import ListView from './ListView'
-//import SearchBox from './SearchBox'
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
-
 
 
 class SideBar extends Component {
@@ -12,30 +9,29 @@ class SideBar extends Component {
     query: '',
     };
 
-
         updateQuery = (query) => {
             this.setState({
               query: query
             })
             //this.props.setMarkerQuery(query)
-            this.props.updateSearchResults(query)
-
+            this.props.updateFilterResults(query)
         }
-
 
 
   render() {
 
-    let searchResults
+    let filterResults
     let { query } = this.state
     let { sushi } = this.props
+
     if (query) {
       const match = new RegExp(escapeRegExp(query), 'i')
-      searchResults = sushi.filter((sushi) => match.test(sushi.name))
+      filterResults = sushi.filter((sushi) => match.test(sushi.name))
     } else {
-      searchResults = sushi
+      filterResults = sushi
     }
-    searchResults.sort(sortBy('searchResults.name'))
+
+    filterResults.sort(sortBy('name'));
 
 
     return (
@@ -59,17 +55,15 @@ class SideBar extends Component {
           <ul
             className="Sidebar-locations-list"
             sushi={this.props.sushi}
-
             >
 
 
-          {searchResults.map(sushi => (
+          {filterResults.map(sushi => (
             <li
               className="Sidebar-list-item"
               key={sushi.id}
               tabIndex={0}
-              onClick={()=> {this.props.showInfo} }
-              onKeyPress={() => {this.props.showInfo} }
+              onClick={this.props.onToggleOpen}
 
               >
               {sushi.name}

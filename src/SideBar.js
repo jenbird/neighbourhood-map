@@ -64,22 +64,15 @@ class SideBar extends Component {
               key={sushi.id}
               tabIndex={0}
               onClick={this.props.onToggleOpen}
-
               >
               {sushi.name}
             </li>
          ))
        }
-
         </ul>
-
-
-
         </section>
       </div>
-
     )
-
 }
 }
 

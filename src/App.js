@@ -3,6 +3,7 @@ import './App.css';
 import SideBar from './SideBar'
 import SushiMap from './SushiMap'
 import escapeRegExp from 'escape-string-regexp'
+import { slide as Menu } from 'react-burger-menu'
 
 
 // https://www.npmjs.com/package/react-foursquare
@@ -27,17 +28,19 @@ class App extends Component {
        //TODO If want to fetch and add more venue sushiDetails
        //e.g. price, rating
        //sushiDetails: [],
-       isOpen: false,
+       //isOpen: false,
        filterResults: [],
-       setSelectedMarker: '',
+       selectedMarker: '',
        isSelected: false,
        animation: 0,
+       menuOpen: false
          }
      };
 
 /*Fetches data on sushi venues and populates both sushi and filterResults array
 so all names and markers shown on initial load*/
       componentDidMount() {
+
         foursquare.venues.getVenues(params)
           .then(res=> {
             this.setState({
@@ -62,7 +65,7 @@ updateFilterResults(query) {
     })
   }
 
-/*
+
 setSelected(status) {
   this.setState({
     isSelected: status,
@@ -74,50 +77,85 @@ setSelectedMarker(id) {
     selectedMarker: id,
   })
 }
-*/
 
+//Used from https://github.com/negomi/react-burger-menu
+showSidebar (event) {
+    event.preventDefault();
+  }
+
+  handleStateChange (state) {
+     this.setState({menuOpen: state.isOpen})
+   }
+
+   closeMenu () {
+    this.setState({menuOpen: false})
+  }
 
   render() {
 
-
     return (
 
-      <div className="App">
+      <div className="App flex-container">
         <header className="App-header">
           <h1 className="App-title">London's Best Sushi</h1>
           </header>
-          <main className="flex-container">
 
-          <SideBar
-            sushi={this.state.sushi}
 
-            showInfo={this.showInfo}
-            onToggleOpen={this.onToggleOpen}
-            updateFilterResults={this.updateFilterResults.bind(this)}
-            filterResults={this.state.filterResults}
-            setSelected={this.setSelected}
-            selectedMarker={this.state.selectedMarker}
-            setSelectedMarker={this.setSelectedMarker}
-            />
-          <div id="map" role="application" aria-label="Sushi restaurants markers on map">
+          <Menu
+            width={ 225 }
+            className={ "my-menu" }
+            pageWrapId={ "page-wrap" }
+            isOpen={ this.state.menuOpen }
+            onStateChange={(state) => this.handleStateChange(state)}
+            showSidebar={this.showSidebar}
+            noOverlay
+            right
+            >
+            <div className="Sidebar">
+              <header>
+            <a onClick={ this.showSidebar }
+                className="menu-item--small"
+                tabIndex={0}
+                href="">Sushi Restaurant List</a>
+              </header>
+            </div>
+              <SideBar
+                sushi={this.state.sushi}
+                onToggleOpen={this.onToggleOpen}
+                updateFilterResults={this.updateFilterResults.bind(this)}
+                filterResults={this.state.filterResults}
+                setSelected={this.setSelected.bind(this)}
+                setSelectedMarker={this.setSelectedMarker.bind(this)}
+                selectedMarker={this.state.selectedMarker}
+                />
+          </Menu>
+
+          <main id="page-wrap" >
+            <div className="map-wrapper" style={{ height: `550px`, width: `100%` }} >
           <SushiMap
             googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBq_ZPuFQWvhI2VFA8pLw3coL_3PvpCDwU&v=3.exp&libraries=geometry,drawing,places"
-            loadingElement={<div style={{ height: `100%` }} />}
-            containerElement={<div id="map" role="application" aria-label="Sushi restaurants markers on map" style={{ height: `600px`, width: `800px` }} />}
+            loadingElement={<div style={{ height: `100%`, width: `100%` }} />}
+            containerElement={
+              <div id="map"
+                role="application"
+                aria-label="Sushi restaurants markers on map"
+                style={{ width: `100%`, marginLeft: `30px`, marginRight: `225px` }}
+                />}
             mapElement={<div style={{ height: `100%`, width: `100%` }} />}
             sushi={this.state.sushi}
             onToggleOpen={this.onToggleOpen}
-            showInfo={this.showInfo}
             updateFilterResults={this.updateFilterResults.bind(this)}
             filterResults={this.state.filterResults}
-            setSelected={this.setSelected}
+            setSelected={this.setSelected.bind(this)}
+            setSelectedMarker={this.setSelectedMarker.bind(this)}
             selectedMarker={this.state.selectedMarker}
             />
-        </div>
+            </div>
           </main>
         <footer id="footer">
+          <div>Data from <a href="https://cloud.google.com/maps-platform/">Google Maps</a> and <a href="https://developer.foursquare.com/"> Foursquare</a> APIs.</div>
         <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Sushi">Sushi</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank" rel="noopener noreferrer">CC 3.0 BY</a></div>
-        <div><a href="/"><strong>London's Best Sushi</strong></a> Built by Jennifer Smith as part of the Google Udacity Scholarship 2018</div>
+        <div><a href="/"><strong>London's Best Sushi</strong></a> Built by <a href="https://www.linkedin.com/in/jennifersmithuk" >Jennifer Smith</a> as part of the Google Udacity Scholarship 2018</div>
         </footer>
       </div>
     );

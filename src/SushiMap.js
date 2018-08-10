@@ -11,7 +11,7 @@ https://tomchentw.github.io/react-google-maps/#infowindow
 const SushiMap = withScriptjs(withGoogleMap((props) =>
 
   <GoogleMap
-    defaultZoom={12.5}
+    defaultZoom={12}
     defaultCenter={ { lat: 51.5073509, lng: -0.1277583 } }
     >
       {props.filterResults.map((sushi) => {
@@ -23,10 +23,11 @@ const SushiMap = withScriptjs(withGoogleMap((props) =>
             name={sushi.name}
             address={sushi.address}
             position={sushi.location}
-            selectedMarker={props.selectedMarker}
             setAnimation={props.setAnimation}
             onToggleOpen={this.onToggleOpen}
-            showInfo={this.showInfo}
+            setSelected={props.setSelected}
+            setSelectedMarker={props.setSelectedMarker}
+            selectedMarker={props.selectedMarker}
             />
         )
       })}

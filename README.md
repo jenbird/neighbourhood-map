@@ -15,7 +15,7 @@ This was project 8, the final project, in phase 2 of the Google Udacity Scholars
 
 In this project we were given no starter code and asked to create a React app featuring a map of our chosen area and places of interest. We were to use a Map API such as Google and another third party API to fetch data about the places. This project uses Google Maps API and Foursquare to fetch data about venues in the map area.
 
-New JS files were created for each component and import/require statements were used when needed.
+New JS files were created for each component and import/require statements were used when needed. React-Google-Maps was used for handling the xMap.
 
 ## Instructions
 

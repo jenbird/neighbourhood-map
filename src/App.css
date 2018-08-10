@@ -8,10 +8,6 @@ body, .app {
   background: black;
   color: white;
 }
-.flex-container {
-  display: flex;
-  flex-flow: row nowrap;
-}
 .App-header {
   text-align: center;
 }
@@ -20,7 +16,7 @@ body, .app {
 }
 .Sidebar {
   width: 20%;
-  flex-flow: column nowrap;
+  min-width: 250px;
   display: block;
   top: 0;
 }
@@ -36,7 +32,7 @@ body, .app {
 .Sidebar-content {
   text-align: left;
   color: white;
-  font-size: 15px;
+  font-size: 13px;
   padding: 0 0 0 15px;
 
 }
@@ -53,25 +49,40 @@ a:hover, a:focus {
   color: rgb(207, 27, 172);
   text-decoration: none;
   }
+
+.flex-container {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
 #map {
   background: black;
   height: 100%;
   width: 80%;
-  flex-flow: column nowrap;
-}
 
+}
+.map-wrapper{
+  height: 350px;
+  width: 100%;
+  right: 225px;
+  display: flex;
+  flex-flow: row wrap;
+  flex-grow: 2;
+  justifyContent: center;
+  padding: 0;
+}
 
 #footer {
   display: block;
   position: relative;
   bottom: 0;
-  left: 0;
   height: 65px;
-  width: 100%;
+  width: 80%;
   color: white;
+  background: black;
   font-size: 8pt;
   letter-spacing: 1px;
-  padding: 25px;
+  margin: 20px 0 0 0;
   text-align: center;
   justify-content: center;
   text-transform: uppercase;
@@ -86,6 +97,75 @@ a:hover, a:focus {
 .Info-title {
   border-bottom: 5px solid orange;
 }
+
 .Info-content {
   color: black;
+}
+
+.bm-icon {
+  color: white;
+}
+
+.bm-cross {
+  color: white;
+}
+
+/* for size adjustment as per instrucitons @ https://github.com/negomi/react-burger-menu*/
+.bm-burger-button {
+  position: fixed;
+  width: 30px;
+  height: 26px;
+  right: 30px;
+  top: 30px;
+}
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+  background: white;
+}
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  height: 30px;
+  width: 30px;
+}
+/* Color/shape of close button cross */
+.bm-cross {
+  background: white;
+}
+
+.bm-menu-wrap {
+  background: black;
+  position: absolute;
+}
+
+.menu-item--small {
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  padding: 0 10px 0 15px;
+}
+
+.bm-item {
+  padding-top: 7.5px;
+}
+.bm-item .clicked {
+  color: orange;
+}
+.bm-item .notClicked {
+  color: white;
+}
+
+/*HOW Override FIXED POSITION CSS OF MENU?
+.my-menu {
+  position: relative;
+}
+*/
+
+
+.Search-box {
+  padding-top: 5px;
+  margin-top: 10px;
+  font-size: 12px;
+  border-radius: 5px;
+  border: 2px solid orange;
+  width: 84%
 }

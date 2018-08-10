@@ -13,10 +13,18 @@ class SushiMarker extends Component {
 
 
     onToggleOpen = () => {
-      this.setState((prevState) =>
-      ({ isOpen: !prevState.isOpen })
-    )
-    }
+    if (this.state.isOpen && (this.props.id === this.props.selectedMarker)) {
+  		this.props.setSelected(false)
+  		this.props.setSelectedMarker('')
+
+  	} else if (!this.state.isOpen) {
+  		this.props.setSelectedMarker(this.props.id)
+  		this.props.setSelected(true)
+  	}
+    this.setState((prevState) =>
+    ({ isOpen: !prevState.isOpen })
+  )
+  }
 
 
       render() {
@@ -29,8 +37,7 @@ class SushiMarker extends Component {
             icon={SushiIcon}
             position={this.props.position}
             onClick={this.onToggleOpen}
-            animation={(this.props.isSelected === true) ? this.props.animation : 0}
-            tabIndex={0}
+            animation={(this.props.id === this.props.selectedMarker) ? this.props.animation : 0}
             >
             {this.state.isOpen &&
               <InfoWindow
@@ -40,10 +47,8 @@ class SushiMarker extends Component {
                           onClick={this.onToggleOpen}
                           onCloseClick={this.onToggleOpen}
                           options={{pixelOffset: new google.maps.Size(0, -10)}}
-                          position={this.props.position}
-                          tabIndex={0}
                         >
-                        <span className="Info-window">
+                        <span className="Info-window" tabIndex={0}>
                           <h4 className="Info-title">{this.props.name}</h4>
                           <p className="Info-content"></p>
                           <p>{this.props.position.address}</p>

@@ -7,15 +7,19 @@ class SideBar extends Component {
 
   state = {
     query: '',
+    isClicked: false,
     };
 
-        updateQuery = (query) => {
-            this.setState({
-              query: query
-            })
-            //this.props.setMarkerQuery(query)
-            this.props.updateFilterResults(query)
+    updateQuery = (query) => {
+      this.setState({
+        query: query
+          })
+          this.props.updateFilterResults(query)
         }
+
+    toggleClass = (e) => {
+      this.setState({ isClicked: !this.state.isClicked})
+    }
 
 
   render() {
@@ -36,11 +40,8 @@ class SideBar extends Component {
 
     return (
 
-      <div className="Sidebar">
-        <header className="Sidebar-title">
-          <h4>Sushi Restaurant List</h4>
-        </header>
-        <section className="Sidebar-content">
+
+        <section className="Sidebar-content" tabIndex={0}>
 
           <input
             className="Search-box"
@@ -60,10 +61,14 @@ class SideBar extends Component {
 
           {filterResults.map(sushi => (
             <li
-              className="Sidebar-list-item"
+              className={(this.state.isClicked) ? 'bm-item clicked': 'bm-item notClicked' }
               key={sushi.id}
               tabIndex={0}
-              onClick={this.props.onToggleOpen}
+              onClick={() => {
+                this.props.setSelected(true)
+                this.props.setSelectedMarker(sushi.id)
+                this.toggleClass
+              }}
               >
               {sushi.name}
             </li>
@@ -71,7 +76,7 @@ class SideBar extends Component {
        }
         </ul>
         </section>
-      </div>
+
     )
 }
 }

@@ -5,10 +5,15 @@ import sortBy from 'sort-by'
 
 class SideBar extends Component {
 
-  state = {
-    query: '',
-    isClicked: false,
-    };
+  constructor(props){
+      super(props);
+
+      this.state = {
+          query: '',
+
+}
+  //  this.handleClick = this.handleClick.bind(this);
+  }
 
     updateQuery = (query) => {
       this.setState({
@@ -17,9 +22,11 @@ class SideBar extends Component {
           this.props.updateFilterResults(query)
         }
 
-    toggleClass = (e) => {
-      this.setState({ isClicked: !this.state.isClicked})
-    }
+//From solution at: https://stackoverflow.com/questions/38542503/react-using-handleclick-to-toggle-class-of-mapped-element-by-key
+          handleClick = (e) => {
+              this.setState({ activeKey: e });
+              console.log('clicked' + e);
+          };
 
 
   render() {
@@ -37,6 +44,7 @@ class SideBar extends Component {
 
     filterResults.sort(sortBy('name'));
 
+    const { key } = this.props.sushi;
 
     return (
 
@@ -61,13 +69,15 @@ class SideBar extends Component {
 
           {filterResults.map(sushi => (
             <li
-              className={(this.state.isClicked) ? 'bm-item clicked': 'bm-item notClicked' }
+
+              className={this.state.activeKey === this.props.sushi.id ? 'active' : ''}
               key={sushi.id}
+              sushi={this.props.sushi}
               tabIndex={0}
-              onClick={() => {
-                this.props.setSelected(true)
-                this.props.setSelectedMarker(sushi.id)
-                this.toggleClass
+              onClick={(e) => {
+                this.props.setSelected(true, e)
+                this.props.setSelectedMarker(sushi.id, e)
+                this.handleClick.bind(this, {key})
               }}
               >
               {sushi.name}

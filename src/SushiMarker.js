@@ -13,18 +13,22 @@ class SushiMarker extends Component {
 
 
     onToggleOpen = () => {
-    if (this.state.isOpen && (this.props.id === this.props.selectedMarker)) {
+    if (this.state.isOpen) {
   		this.props.setSelected(false)
   		this.props.setSelectedMarker('')
 
   	} else if (!this.state.isOpen) {
-  		this.props.setSelectedMarker(this.props.id)
   		this.props.setSelected(true)
+      this.props.setSelectedMarker(this.props.key)
+      //NEED ID???
   	}
     this.setState((prevState) =>
     ({ isOpen: !prevState.isOpen })
   )
   }
+
+
+//    this.handleClick.bind(this, {key})
 
 
       render() {

@@ -19,6 +19,7 @@ const SushiMap = withScriptjs(withGoogleMap((props) =>
         return (
 
           <SushiMarker
+            sushi={this.sushi}
             key={sushi.id}
             name={sushi.name}
             address={sushi.address}

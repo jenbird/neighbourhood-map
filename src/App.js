@@ -33,7 +33,7 @@ class App extends Component {
        selectedMarker: '',
        isSelected: false,
        animation: 0,
-       menuOpen: false
+       menuOpen: false,
          }
      };
 
@@ -72,6 +72,7 @@ setSelected(status) {
   })
 }
 
+//NEED TO SET TRUE???
 setSelectedMarker(id) {
   this.setState({
     selectedMarker: id,
@@ -112,12 +113,10 @@ showSidebar (event) {
             right
             >
             <div className="Sidebar">
-              <header>
             <a onClick={ this.showSidebar }
                 className="menu-item--small"
                 tabIndex={0}
                 href="">Sushi Restaurant List</a>
-              </header>
             </div>
               <SideBar
                 sushi={this.state.sushi}

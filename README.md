@@ -25,6 +25,9 @@ In your terminal:
 * start the development server with `npm start`
 React app will start automatically on its own server and open in your browser.
 
+PLease note that the package used to build the site: `create-react-app` means that the site comes with a pre-installed service worker to enable offline use. However this only works in production mode.
+
+You can run the site in production mode by using the following commands in your terminal: `npm run build` then `serve -s build`. You can then use your browser and visit `localhost:5000`.
 
 ## Dependencies
 

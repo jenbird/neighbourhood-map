@@ -1,3 +1,8 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 html, body, .root {
   height: 100%;
 }
@@ -10,26 +15,32 @@ body, .app {
 }
 .App-header {
   text-align: center;
+  margin: 20px 0 30px 0;
 }
 .App-title {
   color: orange;
 }
-.Sidebar {
-  width: 20%;
-  min-width: 250px;
-  display: block;
-  top: 0;
+.bm-menu {
+  padding-left: 10px;
+
+}
+.menu-item--small {
+  colour: orange;
+  text-align: left;
+  font-size: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .Sidebar-content {
   text-align: left;
   color: white;
   font-size: 13px;
-  padding: 0 0 0 15px;
+  padding: 10px 0 5px 0;
 }
 .Sidebar-locations-list {
   list-style-type: none;
-  padding-left: 0;
+  padding-top: 10px;
 }
 a {
   color: orange;
@@ -37,7 +48,7 @@ a {
 }
 
 a:hover, a:focus {
-  color: rgb(207, 27, 172);
+  color: white;
   text-decoration: none;
   }
 
@@ -49,18 +60,15 @@ a:hover, a:focus {
 #map {
   background: black;
   height: 100%;
-  width: 80%;
+  width: 100%;
+  margin: 0 100px 0 60px;
 
 }
 .map-wrapper{
   height: 350px;
   width: 100%;
-  right: 225px;
   display: flex;
   flex-flow: row wrap;
-  flex-grow: 2;
-  justifyContent: center;
-  padding: 0;
 }
 
 #footer {
@@ -73,7 +81,7 @@ a:hover, a:focus {
   background: black;
   font-size: 8pt;
   letter-spacing: 1px;
-  margin: 20px 0 0 0;
+  margin: 20px 65px 0 65px;
   text-align: center;
   justify-content: center;
   text-transform: uppercase;
@@ -81,7 +89,7 @@ a:hover, a:focus {
 
 .Info-window {
   color: black;
-  max-width: 250px;
+  max-width: 200px;
   width: calc(70vw);
 }
 
@@ -123,17 +131,13 @@ a:hover, a:focus {
   background: white;
 }
 
-.bm-menu-wrap {
+.my-menu {
   background: black;
-  position: absolute;
+  position: absolute !important;
+  width: 20% !important;
 }
-
-.menu-item--small {
-  margin-left: 15px;
-  colour: orange;
-  text-align: left;
-  color: orange;
-  font-size: 18px
+.my-menu::after {
+  position: fixed !important;
 }
 
 .bm-item {
@@ -146,12 +150,6 @@ a:hover, a:focus {
   color: orange;
 }
 
-/*HOW Override FIXED POSITION CSS OF MENU?
-.my-menu {
-  position: relative;
-}
-*/
-
 .Search-box {
   padding-top: 5px;
   margin-top: 5px;
@@ -159,4 +157,62 @@ a:hover, a:focus {
   border-radius: 5px;
   border: 2px solid orange;
   width: 90%;
+}
+
+/*Media queries for mobile and tablet screens*/
+
+@media screen and (max-width: 549px) {
+  .App-title {
+    font-size: 21px;
+  }
+  .App-header {
+    margin: 15px 0 20px 0;
+  }
+  #map {
+    margin: 0 60px 0 20px;
+  }
+  .bm-burger-button {
+    position: fixed;
+    width: 23px;
+    height: 20px;
+    right: 21px;
+    top: 21px;
+  }
+  #footer {
+    font-size: 7pt;
+    margin: 10px 60px 5px 20px;
+  }
+}
+
+@media screen and (min-width: 550px) and (max-width: 768px) {
+  .App-title {
+    font-size: 24px;
+  }
+  .bm-burger-button {
+    position: fixed;
+    width: 25px;
+    height: 21px;
+    right: 27px;
+    top: 27px;
+  }
+  .menu-item--small {
+    colour: orange;
+    font-size: 14px
+  }
+  .my-menu {
+    width: 15%;
+  }
+  #map {
+    width: 85%;
+    margin: 0 80px 0 40px;
+  }
+  .Sidebar-content {
+    text-align: left;
+    color: white;
+    font-size: 12px;
+  }
+#footer {
+  font-size: 7pt;
+  margin: 15px 80px 5px 40px;
+}
 }

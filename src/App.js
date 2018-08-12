@@ -103,7 +103,7 @@ showSidebar (event) {
 
 
           <Menu
-            width={ 225 }
+            
             className={ "my-menu" }
             pageWrapId={ "page-wrap" }
             isOpen={ this.state.menuOpen }
@@ -138,7 +138,7 @@ showSidebar (event) {
               <div id="map"
                 role="application"
                 aria-label="Sushi restaurants markers on map"
-                style={{ width: `100%`, marginLeft: `30px`, marginRight: `225px` }}
+                style={{ width: `100%` }}
                 />}
             mapElement={<div style={{ height: `100%`, width: `100%` }} />}
             sushi={this.state.sushi}

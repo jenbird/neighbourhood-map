@@ -14,7 +14,11 @@ const SushiMap = withScriptjs(withGoogleMap((props) =>
     defaultZoom={12}
     defaultCenter={ { lat: 51.5073509, lng: -0.1277583 } }
     >
-      {props.filterResults.map((sushi) => {
+
+    {props.filterResults === undefined ?
+      <p className="Error-alert">Could not load restaurants...</p> :
+
+    (props.filterResults.map(sushi => {
 
         return (
 
@@ -31,7 +35,9 @@ const SushiMap = withScriptjs(withGoogleMap((props) =>
             selectedMarker={props.selectedMarker}
             />
         )
-      })}
+      }))
+
+      }
     </GoogleMap>
   ))
 

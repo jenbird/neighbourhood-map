@@ -4,6 +4,9 @@ import SideBar from './SideBar'
 import SushiMap from './SushiMap'
 import escapeRegExp from 'escape-string-regexp'
 import { slide as Menu } from 'react-burger-menu'
+//import { ErrorBoundary, FallbackView } from 'react-error-boundaries'
+import ErrorBoundary from './ErrorBoundaryComponent'
+
 
 
 // https://www.npmjs.com/package/react-foursquare
@@ -17,6 +20,10 @@ var params = {
   query: 'sushi'
 };
 
+window.gm_authFailure = function() {
+    alert("Google Maps did not load correctly, please try again.")
+}
+
 
 class App extends Component {
 
@@ -25,15 +32,16 @@ class App extends Component {
 
      this.state = {
        sushi: [],
-       //TODO If want to fetch and add more venue sushiDetails
-       //e.g. price, rating
+       //TODO To fetch and add more venue sushiDetails
+       //e.g. price, rating, photo
        //sushiDetails: [],
        //isOpen: false,
        filterResults: [],
        selectedMarker: '',
        isSelected: false,
        animation: 0,
-       menuOpen: false,
+       menuOpen: true,
+       errorFound: false,
          }
      };
 
@@ -49,12 +57,23 @@ so all names and markers shown on initial load*/
             });
             console.log("got venues!")
           })
-          .catch(error => {
-            console.log("error!");
+          .catch((error, info) => {
+            this.setState({
+              errorFound: true,
+              });
+            console.log('error: ', error);
+            console.log('info: ', info);
+            //alert("Could not load restaurants!");
           })
-
-//TODO: Add UI for user if content does not load
       }
+
+      componentDidCatch(error, info) {
+        this.setState({ errorFound: true });
+        window.alert("Oops, something went wrong. Please refresh the page.")
+        console.log('error: ', error);
+        console.log('info: ', info);
+        }
+
 
 
 //When query starts, filter results
@@ -92,18 +111,23 @@ showSidebar (event) {
     this.setState({menuOpen: false})
   }
 
+
+
   render() {
 
+console.log('render', this.props, this.state);
+
+
     return (
+
+      <ErrorBoundary>
 
       <div className="App flex-container">
         <header className="App-header">
           <h1 className="App-title">London's Best Sushi</h1>
           </header>
 
-
           <Menu
-            
             className={ "my-menu" }
             pageWrapId={ "page-wrap" }
             isOpen={ this.state.menuOpen }
@@ -118,6 +142,8 @@ showSidebar (event) {
                 tabIndex={0}
                 href="">Sushi Restaurant List</a>
             </div>
+
+
               <SideBar
                 sushi={this.state.sushi}
                 onToggleOpen={this.onToggleOpen}
@@ -126,11 +152,18 @@ showSidebar (event) {
                 setSelected={this.setSelected.bind(this)}
                 setSelectedMarker={this.setSelectedMarker.bind(this)}
                 selectedMarker={this.state.selectedMarker}
+                errorFound={this.state.errorFound}
                 />
           </Menu>
 
+
+
+
           <main id="page-wrap" >
             <div className="map-wrapper" style={{ height: `550px`, width: `100%` }} >
+
+              {navigator.onLine &&
+                  !this.state.errorFound && this.state.filterResults && (
           <SushiMap
             googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBq_ZPuFQWvhI2VFA8pLw3coL_3PvpCDwU&v=3.exp&libraries=geometry,drawing,places"
             loadingElement={<div style={{ height: `100%`, width: `100%` }} />}
@@ -149,6 +182,16 @@ showSidebar (event) {
             setSelectedMarker={this.setSelectedMarker.bind(this)}
             selectedMarker={this.state.selectedMarker}
             />
+        )}
+
+        {!navigator.onLine &&
+          <h4 className="Error-alert">Oops, maps did not load. Check connection.</h4>}
+
+
+       {navigator.onLine && this.state.errorFound && (
+         <h4 className="Error-alert">Oops, Maps went wrong!</h4>
+       )}
+
             </div>
           </main>
         <footer id="footer">
@@ -157,6 +200,8 @@ showSidebar (event) {
         <div><a href="/"><strong>London's Best Sushi</strong></a> Built by <a href="https://www.linkedin.com/in/jennifersmithuk" >Jennifer Smith</a> as part of the Google Udacity Scholarship 2018</div>
         </footer>
       </div>
+
+    </ErrorBoundary>
     );
   }
 }

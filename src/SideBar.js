@@ -31,23 +31,30 @@ class SideBar extends Component {
 
   render() {
 
+
+
     let filterResults
-    let { query } = this.state
-    let { sushi } = this.props
+    let { query } = this.state;
+    let { sushi } = this.props;
+
+    //{this.state.name!= undefined?this.state.name:"hello"}
 
     if (query) {
       const match = new RegExp(escapeRegExp(query), 'i')
       filterResults = sushi.filter((sushi) => match.test(sushi.name))
     } else {
-      filterResults = sushi
+      filterResults = sushi;
     }
+console.log(filterResults);
 
-    filterResults.sort(sortBy('name'));
+    if (this.props.filterResults !== undefined) {
+        filterResults.sort(sortBy('name'));
+        }
 
-    const { key } = this.props.sushi;
+
+    //const { key } = this.props.sushi;
 
     return (
-
 
         <section className="Sidebar-content" tabIndex={0}>
 
@@ -67,7 +74,10 @@ class SideBar extends Component {
             >
 
 
-          {filterResults.map(sushi => (
+            {this.props.filterResults === undefined ?
+              <p className="Error-alert">Could not load restaurants...</p> :
+
+            (this.props.filterResults.map(sushi => (
             <li
 
               className={this.state.activeKey === this.props.sushi.id ? 'active' : ''}
@@ -77,19 +87,23 @@ class SideBar extends Component {
               onClick={(e) => {
                 this.props.setSelected(true, e)
                 this.props.setSelectedMarker(sushi.id, e)
-                this.handleClick.bind(this, {key})
+                this.handleClick.bind(this)
               }}
               >
               {sushi.name}
             </li>
          ))
+       )
        }
+
         </ul>
         </section>
+
 
     )
 }
 }
+
 
 
 export default SideBar;

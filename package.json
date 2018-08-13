@@ -9,6 +9,7 @@
     "react": "^16.4.1",
     "react-burger-menu": "^2.5.2",
     "react-dom": "^16.4.1",
+    "react-error-boundaries": "^1.1.4",
     "react-foursquare": "^1.0.3",
     "react-google-maps": "^9.4.5",
     "react-lifecycles-compat": "^3.0.4",

@@ -27,11 +27,11 @@ class SushiMarker extends Component {
   )
   }
 
-
 //    this.handleClick.bind(this, {key})
 
 
       render() {
+
 
         return (
 

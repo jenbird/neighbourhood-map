@@ -29,10 +29,13 @@ const SushiMap = withScriptjs(withGoogleMap((props) =>
             address={sushi.address}
             position={sushi.location}
             setAnimation={props.setAnimation}
-            onToggleOpen={this.onToggleOpen}
+            onClick={(e) => {
+              this.onToggleOpen(e)
+            }}
             setSelected={props.setSelected}
             setSelectedMarker={props.setSelectedMarker}
             selectedMarker={props.selectedMarker}
+            animation={props.animation}
             />
         )
       }))

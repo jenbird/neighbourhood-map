@@ -85,7 +85,9 @@ class SideBar extends Component {
               onClick={(e) => {
                 this.props.setSelected(true)
                 this.props.setSelectedMarker(e, sushi.location)
-
+                this.props.setAnimation(1)
+                setTimeout(() => this.props.setAnimation(0), 2000)
+                
               }}
               >
               {sushi.name}

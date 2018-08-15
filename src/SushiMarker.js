@@ -52,15 +52,15 @@ class SushiMarker extends Component {
               this.onToggleOpen(e)
             }}
 
-            animation={(this.props.id === this.props.selectedMarker) ? this.props.animation : 0}
+            animation={(this.props.position === this.props.selectedMarker) ? this.props.animation : 0}
             >
 
-            {this.state.isOpen &&
+            {this.state.isOpen && this.props.position === this.props.selectedMarker &&
 
               <InfoWindow
                           key={this.props.id}
                           name={this.props.name}
-                          position={this.props.position}
+                          position={this.props.location}
                           onCloseClick={this.onToggleOpen}
                           options={{pixelOffset: new google.maps.Size(0, -10)}}
                         >

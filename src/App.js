@@ -207,7 +207,7 @@ showSidebar (event) {
             setSelected={this.setSelected.bind(this)}
             setSelectedMarker={this.setSelectedMarker.bind(this)}
             selectedMarker={this.state.selectedMarker}
-            setAnimation={this.state.animation}
+            animation={this.state.animation}
             />
         )}
 

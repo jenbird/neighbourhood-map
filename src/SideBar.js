@@ -1,3 +1,4 @@
+/*global google*/
 import React, { Component } from 'react';
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
@@ -17,21 +18,23 @@ class SideBar extends Component {
 
     updateQuery = (query) => {
       this.setState({
-        query: query
+        query: query,
+        animation: 0,
+        windowOpen: false,
           })
           this.props.updateFilterResults(query)
         }
 
-//From solution at: https://stackoverflow.com/questions/38542503/react-using-handleclick-to-toggle-class-of-mapped-element-by-key
+/*From solution at: https://stackoverflow.com/questions/38542503/react-using-handleclick-to-toggle-class-of-mapped-element-by-key
           handleClick = (e) => {
               this.setState({ activeKey: e });
               console.log('clicked' + e);
           };
+          */
+
 
 
   render() {
-
-
 
     let filterResults
     let { query } = this.state;
@@ -45,14 +48,11 @@ class SideBar extends Component {
     } else {
       filterResults = sushi;
     }
-console.log(filterResults);
 
     if (this.props.filterResults !== undefined) {
         filterResults.sort(sortBy('name'));
         }
 
-
-    //const { key } = this.props.sushi;
 
     return (
 
@@ -73,21 +73,19 @@ console.log(filterResults);
             sushi={this.props.sushi}
             >
 
-
             {this.props.filterResults === undefined ?
               <p className="Error-alert">Could not load restaurants...</p> :
 
             (this.props.filterResults.map(sushi => (
             <li
-
-              className={this.state.activeKey === this.props.sushi.id ? 'active' : ''}
               key={sushi.id}
-              sushi={this.props.sushi}
+              location={sushi.position}
               tabIndex={0}
+              role="menuitem"
               onClick={(e) => {
-                this.props.setSelected(true, e)
-                this.props.setSelectedMarker(sushi.id, e)
-                this.handleClick.bind(this)
+                this.props.setSelected(true)
+                this.props.setSelectedMarker(e, sushi.location)
+
               }}
               >
               {sushi.name}

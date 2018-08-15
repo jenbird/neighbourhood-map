@@ -9,21 +9,25 @@ class SushiMarker extends Component {
       state = {
         isOpen: false,
         animation: 0,
+        //windowOpen: true,
+        //activeMarker: {},
       }
 
 
-    onToggleOpen = () => {
-    if (this.state.isOpen) {
+    onToggleOpen = (e) => {
+    if (this.state.isOpen && (this.props.position === this.props.selectedMarker)) {
   		this.props.setSelected(false)
   		this.props.setSelectedMarker('')
 
-  	} else if (!this.state.isOpen) {
+
+  	} else if (!this.state.isOpen ) {
   		this.props.setSelected(true)
-      this.props.setSelectedMarker(this.props.key)
-      //NEED ID???
+      this.props.setSelectedMarker(e, this.props.position)
+//labeledLatLngs
   	}
     this.setState((prevState) =>
     ({ isOpen: !prevState.isOpen })
+    //({ windowOpen: !prevState.windowOpen})
   )
   }
 
@@ -32,6 +36,10 @@ class SushiMarker extends Component {
 
       render() {
 
+        //let { id } = this.props;
+        //let { marker } = this.state.activeMarker;
+        let selectedMarker;
+        console.log(selectedMarker);
 
         return (
 
@@ -40,15 +48,19 @@ class SushiMarker extends Component {
             name={this.props.name}
             icon={SushiIcon}
             position={this.props.position}
-            onClick={this.onToggleOpen}
+            onClick={(e) => {
+              this.onToggleOpen(e)
+            }}
+
             animation={(this.props.id === this.props.selectedMarker) ? this.props.animation : 0}
             >
+
             {this.state.isOpen &&
+
               <InfoWindow
                           key={this.props.id}
                           name={this.props.name}
                           position={this.props.position}
-                          onClick={this.onToggleOpen}
                           onCloseClick={this.onToggleOpen}
                           options={{pixelOffset: new google.maps.Size(0, -10)}}
                         >

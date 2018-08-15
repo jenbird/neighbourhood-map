@@ -1,3 +1,4 @@
+/*global google*/
 import React, { Component } from 'react';
 import './App.css';
 import SideBar from './SideBar'
@@ -5,7 +6,7 @@ import SushiMap from './SushiMap'
 import escapeRegExp from 'escape-string-regexp'
 import { slide as Menu } from 'react-burger-menu'
 //import { ErrorBoundary, FallbackView } from 'react-error-boundaries'
-import ErrorBoundary from './ErrorBoundaryComponent'
+import ErrorBoundaryComponent from './ErrorBoundaryComponent'
 
 
 
@@ -35,13 +36,15 @@ class App extends Component {
        //TODO To fetch and add more venue sushiDetails
        //e.g. price, rating, photo
        //sushiDetails: [],
-       //isOpen: false,
+       isOpen: false,
        filterResults: [],
        selectedMarker: '',
        isSelected: false,
        animation: 0,
        menuOpen: true,
        errorFound: false,
+       filterQuery: '',
+       windowOpen: false,
          }
      };
 
@@ -84,19 +87,46 @@ updateFilterResults(query) {
     })
   }
 
-
 setSelected(status) {
   this.setState({
     isSelected: status,
   })
 }
 
-//NEED TO SET TRUE???
-setSelectedMarker(id) {
+setSelectedMarker(e, position) {
   this.setState({
-    selectedMarker: id,
+    selectedMarker: position,
   })
 }
+
+
+setAnimation(animation) {
+  this.setState({
+      animation: animation,
+})
+}
+
+//How does this work with react-google-maps??
+/*
+setActiveMarker () {
+  this.setState ({
+    activeMarker: new google.maps.Marker({
+              name: marker.name,
+              position: marker.position
+            })
+  })
+}
+*/
+
+/*
+var ourMarker = getMarker(title)
+google.maps.event.trigger(ourMarker, 'click');
+
+var myMarker = map.markers[9]
+myMarker.click(myMarker)
+
+*/
+
 
 //Used from https://github.com/negomi/react-burger-menu
 showSidebar (event) {
@@ -112,15 +142,12 @@ showSidebar (event) {
   }
 
 
-
   render() {
-
-console.log('render', this.props, this.state);
 
 
     return (
 
-      <ErrorBoundary>
+      <ErrorBoundaryComponent>
 
       <div className="App flex-container">
         <header className="App-header">
@@ -153,11 +180,10 @@ console.log('render', this.props, this.state);
                 setSelectedMarker={this.setSelectedMarker.bind(this)}
                 selectedMarker={this.state.selectedMarker}
                 errorFound={this.state.errorFound}
+                setAnimation={this.setAnimation.bind(this)}
+
                 />
           </Menu>
-
-
-
 
           <main id="page-wrap" >
             <div className="map-wrapper" style={{ height: `550px`, width: `100%` }} >
@@ -181,6 +207,7 @@ console.log('render', this.props, this.state);
             setSelected={this.setSelected.bind(this)}
             setSelectedMarker={this.setSelectedMarker.bind(this)}
             selectedMarker={this.state.selectedMarker}
+            setAnimation={this.state.animation}
             />
         )}
 
@@ -201,7 +228,7 @@ console.log('render', this.props, this.state);
         </footer>
       </div>
 
-    </ErrorBoundary>
+    </ErrorBoundaryComponent>
     );
   }
 }

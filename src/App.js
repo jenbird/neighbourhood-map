@@ -10,7 +10,7 @@ import ErrorBoundaryComponent from './ErrorBoundaryComponent'
 
 
 
-// https://www.npmjs.com/package/react-foursquare
+//https://www.npmjs.com/package/react-foursquare
 var foursquare = require('react-foursquare')({
   clientID: 'YFQIXTPIIUHAOVQ4C1DOQTKKLANG1QIUUIO140SIZLKV3DDA',
   clientSecret: 'QVTNCBNNTUZMSAMT515A0CIBMRIEVPPEYR3YUJMNG2FG3124'
@@ -24,6 +24,11 @@ var params = {
 window.gm_authFailure = function() {
     alert("Google Maps did not load correctly, please try again.")
 }
+
+
+//From https://davidwalsh.name/nodelist-array
+//var markers = [].slice.call(document.querySelectorAll("Markers"));
+
 
 
 class App extends Component {
@@ -119,13 +124,31 @@ setActiveMarker () {
 */
 
 /*
-var ourMarker = getMarker(title)
-google.maps.event.trigger(ourMarker, 'click');
+var myMarker = getMarker(title)
+google.maps.event.trigger(myMarker, 'click');
 
 var myMarker = map.markers[9]
 myMarker.click(myMarker)
 
 */
+
+handleClick = (e, marker, position) => {
+  //From https://davidwalsh.name/nodelist-array
+    //let markers = [].slice.call(document.querySelectorAll("Markers"));
+    //new google.maps.event.trigger( markers, 'click' );
+    this.setState({
+			windowOpen: true,
+      selectedMarker: marker,
+			position: this.props.position,
+      isSelected: true,
+})
+google.maps.event.trigger(position, 'click');
+//new google.maps.event.trigger(position, 'click');
+console.log(position);
+}
+
+
+
 
 
 //Used from https://github.com/negomi/react-burger-menu
@@ -181,7 +204,8 @@ showSidebar (event) {
                 selectedMarker={this.state.selectedMarker}
                 errorFound={this.state.errorFound}
                 setAnimation={this.setAnimation.bind(this)}
-
+                handleClick={this.handleClick.bind(this)}
+                windowOpen={this.state.windowOpen}
                 />
           </Menu>
 
@@ -208,6 +232,8 @@ showSidebar (event) {
             setSelectedMarker={this.setSelectedMarker.bind(this)}
             selectedMarker={this.state.selectedMarker}
             animation={this.state.animation}
+            handleClick={this.handleClick.bind(this)}
+            windowOpen={this.state.windowOpen}
             />
         )}
 

@@ -11,7 +11,9 @@ class SideBar extends Component {
 
       this.state = {
           query: '',
-
+          selectedMarker: {},
+          animation: 0,
+          windowOpen: ''
 }
   //  this.handleClick = this.handleClick.bind(this);
   }
@@ -19,8 +21,6 @@ class SideBar extends Component {
     updateQuery = (query) => {
       this.setState({
         query: query,
-        animation: 0,
-        windowOpen: false,
           })
           this.props.updateFilterResults(query)
         }
@@ -31,6 +31,19 @@ class SideBar extends Component {
               console.log('clicked' + e);
           };
           */
+
+/* taken out to App...
+handleClick = (e, marker) => {
+  //From https://davidwalsh.name/nodelist-array
+    //let markers = [].slice.call(document.querySelectorAll("Markers"));
+    //new google.maps.event.trigger( markers, 'click' );
+    this.setState({
+			selectedMarker: marker,
+			windowOpen: true,
+			position: this.props.location,
+})
+}
+*/
 
 
 
@@ -52,6 +65,9 @@ class SideBar extends Component {
     if (this.props.filterResults !== undefined) {
         filterResults.sort(sortBy('name'));
         }
+
+        console.log(this.props.selectedMarker);
+
 
 
     return (
@@ -83,11 +99,12 @@ class SideBar extends Component {
               tabIndex={0}
               role="menuitem"
               onClick={(e) => {
-                this.props.setSelected(true)
+                //this.props.setSelected(true)
                 this.props.setSelectedMarker(e, sushi.location)
                 this.props.setAnimation(1)
                 setTimeout(() => this.props.setAnimation(0), 2000)
-                
+                this.props.handleClick(e, sushi.location, sushi.location)
+
               }}
               >
               {sushi.name}

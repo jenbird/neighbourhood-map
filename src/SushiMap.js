@@ -1,3 +1,4 @@
+/*global google*/
 import React from "react";
 import { withScriptjs, withGoogleMap, GoogleMap } from "react-google-maps";
 import SushiMarker from "./SushiMarker";
@@ -23,6 +24,7 @@ const SushiMap = withScriptjs(withGoogleMap((props) =>
         return (
 
           <SushiMarker
+            className={ "Sushi-marker"}
             sushi={this.sushi}
             key={sushi.id}
             name={sushi.name}
@@ -36,6 +38,8 @@ const SushiMap = withScriptjs(withGoogleMap((props) =>
             setSelectedMarker={props.setSelectedMarker}
             selectedMarker={props.selectedMarker}
             animation={props.animation}
+            handleClick={props.handleClick}
+            windowOpen={props.windowOpen}
             />
         )
       }))

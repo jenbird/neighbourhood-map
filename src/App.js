@@ -1,4 +1,3 @@
-/*global google*/
 import React, { Component } from 'react';
 import './App.css';
 import SideBar from './SideBar'
@@ -19,11 +18,10 @@ var params = {
   query: 'sushi'
 };
 
-//Alert if Google Maps do not load
+//Alert if Google Maps doesn't load
 window.gm_authFailure = function() {
     alert("Google Maps did not load correctly, please try again.")
 }
-
 
 
 class App extends Component {
@@ -110,16 +108,12 @@ onToggleOpen = (e) => {
   )
   }
 
-//New function for marker click
-
-
-
+//Sets the animation for list item clicks 
 setAnimation(animation) {
   this.setState({
       animation: animation,
 })
 }
-
 
 //Used from https://github.com/negomi/react-burger-menu
 showSidebar (event) {

@@ -4,40 +4,14 @@ import { Marker, InfoWindow } from "react-google-maps";
 import SushiIcon from "./sushi.png";
 
 
-//From https://davidwalsh.name/nodelist-array
-//var markers = [].slice.call(document.querySelectorAll("Markers"));
-//console.log(markers);
-
-
 class SushiMarker extends Component {
 
       state = {
 
       }
 
-  /*
-    onToggleOpen = (e) => {
-
-    if (this.state.windowOpen && (this.props.position === this.props.selectedMarker)) {
-  		this.props.setSelected(false)
-  		this.props.setSelectedMarker('')
-
-
-  	} else if (!this.state.windowOpen ) {
-  		this.props.setSelected(true)
-      this.props.setSelectedMarker(e, this.props.position)
-  	}
-    this.setState((prevState) =>
-    ({windowOpen: !prevState.windowOpen})
-  )
-  }
-  */
-
 
       render() {
-
-        let { sushi } = this.props;
-        //let { marker } = this.state.activeMarker;
 
 
         return (

@@ -1,4 +1,3 @@
-/*global google*/
 import React, { Component } from 'react';
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
@@ -11,11 +10,9 @@ class SideBar extends Component {
 
       this.state = {
           query: '',
-          //selectedMarker: {},
           animation: 0,
           windowOpen: false,
 }
-  //  this.handleClick = this.handleClick.bind(this);
   }
 
     updateQuery = (query) => {
@@ -43,8 +40,6 @@ class SideBar extends Component {
     if (this.props.filterResults !== undefined) {
         filterResults.sort(sortBy('name'));
         }
-
-        console.log(this.props.selectedMarker);
 
 
     return (

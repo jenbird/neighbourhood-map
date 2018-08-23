@@ -12,11 +12,12 @@ import SushiIcon from "./sushi.png";
 class SushiMarker extends Component {
 
       state = {
-          
+
       }
 
-
+  /*
     onToggleOpen = (e) => {
+
     if (this.state.windowOpen && (this.props.position === this.props.selectedMarker)) {
   		this.props.setSelected(false)
   		this.props.setSelectedMarker('')
@@ -25,22 +26,18 @@ class SushiMarker extends Component {
   	} else if (!this.state.windowOpen ) {
   		this.props.setSelected(true)
       this.props.setSelectedMarker(e, this.props.position)
-//labeledLatLngs
   	}
     this.setState((prevState) =>
-    ({
-     windowOpen: !prevState.windowOpen
-   })
+    ({windowOpen: !prevState.windowOpen})
   )
   }
-
+  */
 
 
       render() {
 
-        //let { id } = this.props;
+        let { sushi } = this.props;
         //let { marker } = this.state.activeMarker;
-
 
 
         return (
@@ -52,22 +49,21 @@ class SushiMarker extends Component {
             icon={SushiIcon}
             position={this.props.position}
             onClick={(e) => {
-              this.onToggleOpen(e)
+              this.props.onToggleOpen(e)
+              this.props.setSelected(true)
+              this.props.setSelectedMarker(e, this.props.position)
             }}
             animation={(this.props.position === this.props.selectedMarker) ? this.props.animation : 0}
             windowOpen={this.state.windowOpen}
-            handleClick={this.props.handleClick}
             >
 
-            {this.state.windowOpen && this.props.position === this.props.selectedMarker &&
-
+            {this.props.windowOpen && this.props.position === this.props.selectedMarker &&
               <InfoWindow
                           key={this.props.id}
                           name={this.props.name}
                           position={this.props.location}
                           marker={this.state.selectedMarker}
-                          windowOpen={this.state.windowOpen}
-                          onCloseClick={this.onToggleOpen}
+                          onCloseClick={this.props.onToggleOpen}
                           options={{pixelOffset: new google.maps.Size(0, -10)}}
                         >
                         <span className="Info-window" tabIndex={0}>

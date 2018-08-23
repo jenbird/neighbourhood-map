@@ -5,9 +5,7 @@ import SideBar from './SideBar'
 import SushiMap from './SushiMap'
 import escapeRegExp from 'escape-string-regexp'
 import { slide as Menu } from 'react-burger-menu'
-//import { ErrorBoundary, FallbackView } from 'react-error-boundaries'
 import ErrorBoundaryComponent from './ErrorBoundaryComponent'
-
 
 
 //https://www.npmjs.com/package/react-foursquare
@@ -21,13 +19,10 @@ var params = {
   query: 'sushi'
 };
 
+//Alert if Google Maps do not load
 window.gm_authFailure = function() {
     alert("Google Maps did not load correctly, please try again.")
 }
-
-
-//From https://davidwalsh.name/nodelist-array
-//var markers = [].slice.call(document.querySelectorAll("Markers"));
 
 
 
@@ -98,11 +93,25 @@ setSelected(status) {
   })
 }
 
+//Works for Sidebar clicks, open windows can be closed with onToggleOpen function onCloseClick
 setSelectedMarker(e, position) {
   this.setState({
     selectedMarker: position,
+    windowOpen: true,
   })
 }
+
+//Works for onCloseClick within InfoWindows
+onToggleOpen = (e) => {
+    this.setState((prevState) =>
+    ({
+     windowOpen: !prevState.windowOpen
+   })
+  )
+  }
+
+//New function for marker click
+
 
 
 setAnimation(animation) {
@@ -110,45 +119,6 @@ setAnimation(animation) {
       animation: animation,
 })
 }
-
-//How does this work with react-google-maps??
-/*
-setActiveMarker () {
-  this.setState ({
-    activeMarker: new google.maps.Marker({
-              name: marker.name,
-              position: marker.position
-            })
-  })
-}
-*/
-
-/*
-var myMarker = getMarker(title)
-google.maps.event.trigger(myMarker, 'click');
-
-var myMarker = map.markers[9]
-myMarker.click(myMarker)
-
-*/
-
-handleClick = (e, marker, position) => {
-  //From https://davidwalsh.name/nodelist-array
-    //let markers = [].slice.call(document.querySelectorAll("Markers"));
-    //new google.maps.event.trigger( markers, 'click' );
-    this.setState({
-			windowOpen: true,
-      selectedMarker: marker,
-			position: this.props.position,
-      isSelected: true,
-})
-google.maps.event.trigger(position, 'click');
-//new google.maps.event.trigger(position, 'click');
-console.log(position);
-}
-
-
-
 
 
 //Used from https://github.com/negomi/react-burger-menu
@@ -165,8 +135,8 @@ showSidebar (event) {
   }
 
 
-  render() {
 
+  render() {
 
     return (
 
@@ -196,15 +166,14 @@ showSidebar (event) {
 
               <SideBar
                 sushi={this.state.sushi}
-                onToggleOpen={this.onToggleOpen}
                 updateFilterResults={this.updateFilterResults.bind(this)}
                 filterResults={this.state.filterResults}
                 setSelected={this.setSelected.bind(this)}
                 setSelectedMarker={this.setSelectedMarker.bind(this)}
                 selectedMarker={this.state.selectedMarker}
+                onToggleOpen={this.onToggleOpen.bind(this)}
                 errorFound={this.state.errorFound}
                 setAnimation={this.setAnimation.bind(this)}
-                handleClick={this.handleClick.bind(this)}
                 windowOpen={this.state.windowOpen}
                 />
           </Menu>
@@ -225,14 +194,13 @@ showSidebar (event) {
                 />}
             mapElement={<div style={{ height: `100%`, width: `100%` }} />}
             sushi={this.state.sushi}
-            onToggleOpen={this.onToggleOpen}
+            onToggleOpen={this.onToggleOpen.bind(this)}
             updateFilterResults={this.updateFilterResults.bind(this)}
             filterResults={this.state.filterResults}
             setSelected={this.setSelected.bind(this)}
             setSelectedMarker={this.setSelectedMarker.bind(this)}
             selectedMarker={this.state.selectedMarker}
             animation={this.state.animation}
-            handleClick={this.handleClick.bind(this)}
             windowOpen={this.state.windowOpen}
             />
         )}

@@ -11,9 +11,9 @@ class SideBar extends Component {
 
       this.state = {
           query: '',
-          selectedMarker: {},
+          //selectedMarker: {},
           animation: 0,
-          windowOpen: ''
+          windowOpen: false,
 }
   //  this.handleClick = this.handleClick.bind(this);
   }
@@ -25,27 +25,6 @@ class SideBar extends Component {
           this.props.updateFilterResults(query)
         }
 
-/*From solution at: https://stackoverflow.com/questions/38542503/react-using-handleclick-to-toggle-class-of-mapped-element-by-key
-          handleClick = (e) => {
-              this.setState({ activeKey: e });
-              console.log('clicked' + e);
-          };
-          */
-
-/* taken out to App...
-handleClick = (e, marker) => {
-  //From https://davidwalsh.name/nodelist-array
-    //let markers = [].slice.call(document.querySelectorAll("Markers"));
-    //new google.maps.event.trigger( markers, 'click' );
-    this.setState({
-			selectedMarker: marker,
-			windowOpen: true,
-			position: this.props.location,
-})
-}
-*/
-
-
 
   render() {
 
@@ -53,7 +32,6 @@ handleClick = (e, marker) => {
     let { query } = this.state;
     let { sushi } = this.props;
 
-    //{this.state.name!= undefined?this.state.name:"hello"}
 
     if (query) {
       const match = new RegExp(escapeRegExp(query), 'i')
@@ -67,7 +45,6 @@ handleClick = (e, marker) => {
         }
 
         console.log(this.props.selectedMarker);
-
 
 
     return (
@@ -99,12 +76,10 @@ handleClick = (e, marker) => {
               tabIndex={0}
               role="menuitem"
               onClick={(e) => {
-                //this.props.setSelected(true)
+                this.props.setSelected(true)
                 this.props.setSelectedMarker(e, sushi.location)
                 this.props.setAnimation(1)
                 setTimeout(() => this.props.setAnimation(0), 2000)
-                this.props.handleClick(e, sushi.location, sushi.location)
-
               }}
               >
               {sushi.name}
@@ -112,15 +87,11 @@ handleClick = (e, marker) => {
          ))
        )
        }
-
         </ul>
         </section>
-
-
     )
 }
 }
-
 
 
 export default SideBar;

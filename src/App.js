@@ -9,8 +9,8 @@ import ErrorBoundaryComponent from './ErrorBoundaryComponent'
 
 //https://www.npmjs.com/package/react-foursquare
 var foursquare = require('react-foursquare')({
-  clientID: 'YFQIXTPIIUHAOVQ4C1DOQTKKLANG1QIUUIO140SIZLKV3DDA',
-  clientSecret: 'QVTNCBNNTUZMSAMT515A0CIBMRIEVPPEYR3YUJMNG2FG3124'
+  clientID: '',
+  clientSecret: ''
 });
 
 var params = {
@@ -108,7 +108,7 @@ onToggleOpen = (e) => {
   )
   }
 
-//Sets the animation for list item clicks 
+//Sets the animation for list item clicks
 setAnimation(animation) {
   this.setState({
       animation: animation,
@@ -178,7 +178,7 @@ showSidebar (event) {
               {navigator.onLine &&
                   !this.state.errorFound && this.state.filterResults && (
           <SushiMap
-            googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBq_ZPuFQWvhI2VFA8pLw3coL_3PvpCDwU&v=3.exp&libraries=geometry,drawing,places"
+            googleMapURL=""
             loadingElement={<div style={{ height: `100%`, width: `100%` }} />}
             containerElement={
               <div id="map"

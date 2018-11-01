@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.55",
+    "dotenv": "^6.1.0",
     "escape-string-regexp": "^1.0.5",
     "hoist-non-react-statics": "^3.0.1",
     "react": "^16.4.1",

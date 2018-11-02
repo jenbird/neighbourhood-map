@@ -7,6 +7,7 @@ Udacity Google Scholarship Phase 2 Project 8 - React app using APIs. This was th
 * [Project Background](#projectbackground)
 * [Instructions](#instructions)
 * [Dependencies](#dependencies)
+* [API Keys](#apikeys)
 * [Create React App](#createreactapp)
 
 ## Project Background
@@ -33,6 +34,16 @@ You can run the site in production mode by using the following commands in your 
 
 * [NodeJs](https://nodejs.org/en/)
 * [NPM](https://www.npmjs.com/)
+
+## API Keys
+
+For the app to work on your local machine you will need two sets of API keys for Google Maps and Foursquare. Details below.
+
+Google: Google recently changed their pricing structure and all new projects much be associated with a billing account which means you need to provide a credit card number in order to get API keys. If you only need a low level of API calls this is unlikely to affect you. [Google's guide to creating an API key](https://cloud.google.com/docs/authentication/api-keys?hl=en-GB&visit_id=636767026743844950-1464672799&rd=1). Once you have an API key you need to replace the code at App.js line 184 to the below and replace "MYAPIKEY" in the URL with your own API key. The URL is needed for the Map component to call the Google Maps API:
+
+`googleMapURL="https://maps.googleapis.com/maps/api/js?key=MYAPIKEY&v=3.exp&libraries=geometry,drawing,places"`
+
+Foursquare: This app uses the Places API to fetch venue information. The search parameters are "sushi" and a Lat Long for central London (App.js: lines 18 & 19). These can be changed. In order to get the API keys to run this app you need to set up a [Developer account](https://developer.foursquare.com/docs/api) and follow the steps to get your clientID and clientSecret keys. You can add this to App.js at line 13 and 14 to run the app on your local machine.
 
 ## Create React App
 

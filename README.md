@@ -1,6 +1,6 @@
 # Neighbourhood Map
 
-Udacity Google Scholarship Phase 2 Project 8 - React app using APIs. This was the final project of the Nanodegree.
+Udacity Google Scholarship Phase 2 Project 8 - React app using APIs. This was the final project of the Nanodegree. The site has been deployed to [Heroku](https://london-sushi-neighbourhood-map.herokuapp.com/), is live and is using config vars to hold API keys.
 
 ## Table of Contents
 
@@ -43,14 +43,16 @@ For the app to work on your local machine you will need two sets of API keys for
 
 `googleMapURL="https://maps.googleapis.com/maps/api/js?key=MYAPIKEY&v=3.exp&libraries=geometry,drawing,places"`
 
+Make sure when when you have your API key that you set the [application restrictions](https://developers.google.com/maps/api-key-best-practices) so that the key only works for your site.
+
 *Foursquare:* This app uses the Places API to fetch venue information. The search parameters are "sushi" and a Lat Long for central London (App.js: lines 22 & 23). These parameters can be changed. In order to get the API keys to run this app you need to set up a [Developer account](https://developer.foursquare.com/docs/api) and follow the steps to get your clientID and clientSecret keys.
 
 Once you have all the API keys you will need to create a .env file in the root directory of your app. In this file it will need to look like this:
 
 ```
-REACT_APP_clientID=YOURCLIENTIDHERE
-REACT_APP_clientSecret=YOURCLIENTSECRETHERE
-REACT_APP_Google_API_URL=YOURURLHERE
+REACT_APP_clientID=YOUR_CLIENTID
+REACT_APP_clientSecret=YOUR_CLIENT_SECRET
+REACT_APP_Google_API_URL=YOUR_URL
 ```
 
 The code in App.js will pull these environmental variables from the .env file and you will be able to run the app on your local machine. Please note that if you publish the code with your API keys, anyone using React will still be able to see these API keys as they run at build time and are visible within the code.

@@ -7,10 +7,15 @@ import { slide as Menu } from 'react-burger-menu'
 import ErrorBoundaryComponent from './ErrorBoundaryComponent'
 
 
+let foursquareID = process.env.REACT_APP_clientID;
+let foursquareSecret = process.env.REACT_APP_clientSecret;
+
+require('dotenv').config()
+
 //https://www.npmjs.com/package/react-foursquare
 var foursquare = require('react-foursquare')({
-  clientID: '',
-  clientSecret: ''
+  clientID: foursquareID,
+  clientSecret: foursquareSecret
 });
 
 var params = {
@@ -22,6 +27,7 @@ var params = {
 window.gm_authFailure = function() {
     alert("Google Maps did not load correctly, please try again.")
 }
+
 
 
 class App extends Component {
@@ -178,7 +184,7 @@ showSidebar (event) {
               {navigator.onLine &&
                   !this.state.errorFound && this.state.filterResults && (
           <SushiMap
-            googleMapURL=""
+            googleMapURL={process.env.REACT_APP_Google_API_URL}
             loadingElement={<div style={{ height: `100%`, width: `100%` }} />}
             containerElement={
               <div id="map"

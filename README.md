@@ -39,11 +39,21 @@ You can run the site in production mode by using the following commands in your 
 
 For the app to work on your local machine you will need two sets of API keys for Google Maps and Foursquare. Details below.
 
-Google: Google recently changed their pricing structure and all new projects much be associated with a billing account which means you need to provide a credit card number in order to get API keys. If you only need a low level of API calls this is unlikely to affect you. [Google's guide to creating an API key](https://cloud.google.com/docs/authentication/api-keys?hl=en-GB&visit_id=636767026743844950-1464672799&rd=1). Once you have an API key you need to replace the code at App.js line 184 to the below and replace "MYAPIKEY" in the URL with your own API key. The URL is needed for the Map component to call the Google Maps API:
+*Google:* Google recently changed their pricing structure and all new projects must be associated with a billing account which means you need to provide a credit card number in order to get API keys. If you only need to make a low level of API calls you are unlikely to be charged for the service. [Google's guide to creating an API key](https://cloud.google.com/docs/authentication/api-keys?hl=en-GB&visit_id=636767026743844950-1464672799&rd=1). Once you have an API key you need to replace "MYAPIKEY" in the URL with your own API key. The URL is needed for the Map component to call the Google Maps API and you will need to add this to your environmental variables (explained below):
 
 `googleMapURL="https://maps.googleapis.com/maps/api/js?key=MYAPIKEY&v=3.exp&libraries=geometry,drawing,places"`
 
-Foursquare: This app uses the Places API to fetch venue information. The search parameters are "sushi" and a Lat Long for central London (App.js: lines 18 & 19). These can be changed. In order to get the API keys to run this app you need to set up a [Developer account](https://developer.foursquare.com/docs/api) and follow the steps to get your clientID and clientSecret keys. You can add this to App.js at line 13 and 14 to run the app on your local machine.
+*Foursquare:* This app uses the Places API to fetch venue information. The search parameters are "sushi" and a Lat Long for central London (App.js: lines 22 & 23). These parameters can be changed. In order to get the API keys to run this app you need to set up a [Developer account](https://developer.foursquare.com/docs/api) and follow the steps to get your clientID and clientSecret keys.
+
+Once you have all the API keys you will need to create a .env file in the root directory of your app. In this file it will need to look like this:
+
+```
+REACT_APP_clientID=YOURCLIENTIDHERE
+REACT_APP_clientSecret=YOURCLIENTSECRETHERE
+REACT_APP_Google_API_URL=YOURURLHERE
+```
+
+The code in App.js will pull these environmental variables from the .env file and you will be able to run the app on your local machine. Please note that if you publish the code with your API keys, anyone using React will still be able to see these API keys as they run at build time and are visible within the code.
 
 ## Create React App
 
